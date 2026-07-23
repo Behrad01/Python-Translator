@@ -4,10 +4,11 @@ from itertools import cycle
 import requests
 from languages import LANGUAGES, LANGUAGES_REVERSED
 
-
-API_KEY = "Put your API key here"
+API_KEY = "d10a57e9-71aa-4031-9813-0d6fa106cc41:fx"
 
 loaded = False
+
+
 def main():
     global loaded
 
@@ -46,9 +47,10 @@ def main():
     print(f"Translated: {translated_text}")
     print("=" * 56)
 
+
 def get_target_language():
     target = input("\nTarget language: ").strip()
-    
+
     if target.upper() in LANGUAGES:
         target = target.upper()
     elif target.capitalize() in LANGUAGES_REVERSED:
@@ -58,16 +60,12 @@ def get_target_language():
 
     return target
 
+
 def translate(text, target_language):
     response = requests.post(
         "https://api-free.deepl.com/v2/translate",
-        headers={
-            "Authorization": f"DeepL-Auth-Key {API_KEY}"
-        },
-        data={
-            "text": text,
-            "target_lang": target_language
-        }
+        headers={"Authorization": f"DeepL-Auth-Key {API_KEY}"},
+        data={"text": text, "target_lang": target_language},
     )
 
     if response.status_code != 200:
@@ -77,6 +75,7 @@ def translate(text, target_language):
 
     return translated
 
+
 def loading():
     global loaded
 
@@ -85,6 +84,7 @@ def loading():
             return
         print(f"\r⏳ Translating... {c}", end="", flush=True)
         time.sleep(0.1)
+
 
 if __name__ == "__main__":
     main()
